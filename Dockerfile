@@ -13,6 +13,7 @@ COPY src /app/diagnosis_api/
 WORKDIR /app
 
 RUN pip install -r requirements.txt
+RUN chmod +x start-server.sh
 RUN chown -R www-data:www-data /app
 
 VOLUME ["/app"]
