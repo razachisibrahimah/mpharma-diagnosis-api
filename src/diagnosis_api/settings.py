@@ -84,11 +84,11 @@ WSGI_APPLICATION = 'diagnosis_api.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'mpharma-diagnosis',
-        'USER': 'mpharma-diagnosis-user',
-        'PASSWORD': 'password',
-        'HOST': 'postgres_db',
-        'PORT': '5432'
+        'NAME': 'diagnosis',
+        'USER': 'postgres',
+        'PASSWORD': 'YASMINElinux',
+        'HOST': 'localhost',
+        'PORT': '5433'
     }
 }
 

@@ -18,16 +18,18 @@ PostgreSQL Server13
 ## Deployment
 In order to deploy the application, it is required to have [Docker](https://www.docker.com/) and [Docker Compose](https://docs.docker.com/compose/) installed.
 
-1. Verify the `.env` file in the root directory to ensure the specified host machine ports are free to bind. If not, simply modify the ports
-2. Run the command `docker-compose up -d`. 4 containers will be built:
+1. clone the repository
+2. Verify the `.env` file in the root directory to ensure the specified host machine ports are free to bind. If not, simply modify the ports
+3. Run the command `docker-compose up -d`. 4 containers will be built:
   - The Django application container with gunicorn as the http-server
-  - nginx container as the reverse proxy
+  - An nginx container as the reverse proxy
   - A postgres container
   - An Adminer container...A GUI application to manage the database.
 
   After the containers start up, the application should be accessible at `http://localhost:<APP_HOST_PORT>`.
 
-  **Note:** On first startup, it may take a while for the application to become available as the database server needs to run it's initialization.
+  **Note:** On first startup, it may take a while for the application to become available as the database server needs to run it's initializations.
+
 
 ## API 
  BasePath: http://localhost:8000/api/

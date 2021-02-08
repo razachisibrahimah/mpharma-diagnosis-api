@@ -7,17 +7,19 @@ RUN apt-get update \
 
 RUN mkdir /app
 
-COPY requirements.txt start-server.sh /app/
+COPY requirements.txt /app/
 COPY src /app/diagnosis_api/
 
 WORKDIR /app
 
 RUN pip install -r requirements.txt
-RUN chmod +x start-server.sh
 RUN chown -R www-data:www-data /app
 
 VOLUME ["/app"]
 
-# start server
 EXPOSE 8010
-CMD ["/app/start-server.sh"]
+
+# start server
+COPY entrypoint.sh /entrypoint.sh
+RUN chmod +x /entrypoint.sh
+CMD ["/entrypoint.sh"]
