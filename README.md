@@ -46,7 +46,6 @@ In order to deploy the application, it is required to have [Docker](https://www.
   {
     "code":"A011",
     "title":"Paratyphoid fever ",
-    "description":"Paratyphoid fever "
   }
   ```
 
