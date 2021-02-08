@@ -1,0 +1,8 @@
+asgiref
+Django
+djangorestframework
+psycopg2-binary
+Pygments
+pytz
+sqlparse
+gunicorn

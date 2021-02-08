@@ -1,0 +1,69 @@
+version: '3.0'
+
+volumes:
+  app-data:
+
+networks:
+  mpharma-diagnosis-api:
+
+services:
+  app:
+    image: ${APP_NAME}:1.0.0
+    build:
+      context: .
+    container_name: ${APP_NAME}
+    restart: unless-stopped
+    environment:
+      PGHOST: postgres_db
+      PGPORT: 5432
+      PGUSER: ${POSTGRES_USERNAME}
+      PGPASSWORD: ${POSTGRES_PASSWORD}
+    volumes:
+      - app-data:/app
+    networks:
+      - mpharma-diagnosis-api
+    depends_on:
+      - postgres_db
+
+  nginx:
+    image: nginx:alpine
+    container_name: ${APP_NAME}_nginx
+    restart: unless-stopped
+    command: ash -c "nginx -g 'daemon off;'"
+    volumes:
+      - ./nginx/conf.d/:/etc/nginx/conf.d/
+      - app-data:/app
+    ports:
+      - ${APP_HOST_PORT}:8020
+    depends_on:
+      - app
+    networks:
+      - mpharma-diagnosis-api
+
+  postgres_db:
+    image: postgres:13.1-alpine
+    container_name: ${APP_NAME}_db
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: ${POSTGRES_USERNAME}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB: ${POSTGRES_DATABASE}
+    volumes:
+      - ./postgres_data:/var/lib/postgresql/data
+    ports:
+      - ${POSTGRES_HOST_PORT}:5432
+    networks:
+      - mpharma-diagnosis-api
+
+  adminer:
+    image: adminer:4.7.8
+    container_name: ${APP_NAME}_adminer
+    restart: unless-stopped
+    environment:
+      ADMINER_DEFAULT_SERVER: postgres_db
+    ports:
+      - ${ADMINER_HOST_PORT}:8080
+    depends_on:
+      - postgres_db
+    networks:
+      - mpharma-diagnosis-api
